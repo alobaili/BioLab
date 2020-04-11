@@ -32,3 +32,12 @@ extension User: Migration {}
 extension User: Content {}
 
 extension User: Parameter {}
+
+extension User {
+    
+    var samples: Children<User, Sample> {
+        children(\.userID)
+    }
+    
+    
+}

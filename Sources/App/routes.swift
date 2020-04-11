@@ -13,6 +13,8 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
     
+    // MARK: Users
+    
     router.get("v1", "users") { (request) -> Future<[User]> in
         if let queryString = request.query[String.self, at: "firstName"] {
             return User.query(on: request).filter(\.firstName == queryString).all()
@@ -51,5 +53,28 @@ public func routes(_ router: Router) throws {
         try request.parameters.next(User.self)
             .delete(on: request)
             .transform(to: HTTPStatus.noContent)
+    }
+    
+    // MARK: Samples
+    
+    router.post("v1", "samples") { (request) -> Future<Sample> in
+        try request.content.decode(Sample.self)
+            .flatMap(to: Sample.self) { (sample) in
+                sample.save(on: request)
+            }
+    }
+    
+    router.get("v1", "samples", Sample.parameter, "user") { (request) -> Future<User> in
+        try request.parameters.next(Sample.self)
+            .flatMap(to: User.self) { (sample) in
+                sample.user.get(on: request)
+            }
+    }
+    
+    router.get("v1", "users", User.parameter, "samples") { (request) -> Future<[Sample]> in
+        try request.parameters.next(User.self)
+            .flatMap(to: [Sample].self) { (user) in
+                try user.samples.query(on: request).all()
+            }
     }
 }
