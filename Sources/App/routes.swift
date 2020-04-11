@@ -8,4 +8,7 @@ public func routes(_ router: Router) throws {
     
     let sampleController = SampleController()
     try router.register(collection: sampleController)
+    
+    let indexController = IndexController()
+    try router.register(collection: indexController)
 }

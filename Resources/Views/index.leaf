@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>BioLab</title>
+    </head>
+    <body>
+        <h1>#(title)</h1>
+
+        <h2>Users</h2>
+        #if(users) {
+            <ul>
+                #for(user in users) {
+                    <li>
+                        <a href="/users/#(user.id)">
+                            #(user.firstName) #(user.lastName)
+                        </a>
+                    </li>
+                }
+            </ul>
+        } else {
+            <p>There are no users. Please add some.</p>
+        }
+    </body>
+</html>
