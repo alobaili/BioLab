@@ -1,28 +1,22 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>BioLab</title>
-    </head>
-    <body>
-        <h1>#(title) for #(user.firstName) #(user.lastName)</h1>
+#set("body") {
+    <h1>#(title) for #(user.firstName) #(user.lastName)</h1>
 
-        <h2>Age: #(user.age)</h2>
+    <h2>Age: #(user.age)</h2>
 
-        <h2>
-            #count(samples)
-            #if(count(samples) != 1) {
-                samples
-            } else {
-                sample
-            }
-        </h2>
-        <ul>
-            #for(sample in samples) {
-                <li>
-                    #(sample.id) #(sample.isProcessed)
-                </li>
-            }
-        </ul>
-    </body>
-</html>
+    <h2>
+        #count(samples)
+        #if(count(samples) != 1) {
+            samples
+        } else {
+            sample
+        }
+    </h2>
+    <ul>
+        #for(sample in samples) {
+            <li>
+                #(sample.id) #(sample.isProcessed)
+            </li>
+        }
+    </ul>
+}
+#embed("master")
