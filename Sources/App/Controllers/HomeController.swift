@@ -24,8 +24,8 @@ struct HomeController: RouteCollection {
     }
     
     func home(_ request: Request) throws -> Future<View> {
-        let homeContext = HomeContext(title: "BioLab")
-        return try request.view().render("home", homeContext)
+        let titleContext = TitleContext(title: "BioLab")
+        return try request.view().render("home", titleContext)
     }
     
     func samples(_ request: Request) throws -> Future<View> {
@@ -50,7 +50,8 @@ struct HomeController: RouteCollection {
     }
     
     func userCreate(_ request: Request) throws -> Future<View> {
-        try request.view().render("userCreate")
+        let titleContext = TitleContext(title: "Create User")
+        return try request.view().render("userCreate", titleContext)
     }
     
     func users(_ request: Request, user: User) throws -> Future<Response> {
@@ -119,7 +120,7 @@ struct HomeController: RouteCollection {
     
 }
 
-struct HomeContext: Encodable {
+struct TitleContext: Encodable {
     
     var title: String
     

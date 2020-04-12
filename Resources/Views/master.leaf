@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/css/bootstrap.min.css">
     </head>
     <body>
+        #embed("navigationBar")
         #get(body)
 
         <script src="/js/jquery-3.5.0.min.js"></script>
