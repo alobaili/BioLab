@@ -18,6 +18,9 @@ struct HomeController: RouteCollection {
         
         router.post(User.self, at: "users", use: users)
         router.post("users", User.parameter, "samples", use: sampleCreate)
+        router.post("samples", Sample.parameter, String.parameter, use: sampleEdit)
+        
+        router.post("samples", "delete", Sample.parameter, use: sampleDelete)
     }
     
     func home(_ request: Request) throws -> Future<View> {
@@ -78,6 +81,39 @@ struct HomeController: RouteCollection {
                         
                         return request.redirect(to: "/users/\(userID)")
                 }
+            }
+    }
+    
+    func sampleEdit(_ request: Request) throws -> Future<Response> {
+        // make sure you get the parameters in order they were added in the route path.
+        let sample = try request.parameters.next(Sample.self)
+        let value = try request.parameters.next(String.self)
+        
+        return sample.flatMap { (updatedSample) in
+            if value.lowercased() == "true" {
+                updatedSample.isProcessed = true
+            } else if value.lowercased() == "false" {
+                updatedSample.isProcessed = false
+            }
+            
+            return updatedSample.save(on: request)
+                .map(to: Response.self) { (savedSample) in
+                    guard savedSample.id != nil else {
+                        throw Abort(.internalServerError)
+                    }
+                    
+                    return request.redirect(to: "/users/\(savedSample.user.parentID)")
+                }
+        }
+    }
+    
+    func sampleDelete(_ request: Request) throws -> Future<Response> {
+        try request.parameters.next(Sample.self)
+            .flatMap(to: Response.self) { (sample) in
+                let userID = sample.userID
+                
+                return sample.delete(on: request)
+                    .transform(to: request.redirect(to: "/users/\(userID)"))
             }
     }
     
