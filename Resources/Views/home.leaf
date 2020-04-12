@@ -1,5 +1,8 @@
-<h1>#(title)</h1>
-
-<p>BioLab is dedicated to providing on time delivery of accurate results for your samples.</p>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">#(title)</h1>
+        <p>BioLab is dedicated to providing on time delivery of accurate results for your samples.</p>
+    </div>
+</div>
 
 #embed("master")

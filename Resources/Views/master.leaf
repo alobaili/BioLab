@@ -3,8 +3,13 @@
     <head>
         <meta charset="utf-8"/>
         <title>BioLab</title>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
     </head>
     <body>
         #get(body)
+
+        <script src="/js/jquery-3.5.0.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
     </body>
 </html>
