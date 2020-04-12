@@ -21,10 +21,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 
     // Create and register a MySQL database config.
     var databases = DatabasesConfig()
-    let databaseConfig = MySQLDatabaseConfig(hostname: "localhost",
-                                             username: "vapor",
-                                             password: "password",
-                                             database: "vapor")
+    let hostname = Environment.get("DATABASE_HOSTNAME") ?? "localhost"
+    let username = Environment.get("DATABASE_USER") ?? "vapor"
+    let password = Environment.get("DATABASE_PASSWORD") ?? "password"
+    let databaseName = Environment.get("DATABASE_DB") ?? "vapor"
+    let databaseConfig = MySQLDatabaseConfig(hostname: hostname,
+                                             username: username,
+                                             password: password,
+                                             database: databaseName)
     let database = MySQLDatabase(config: databaseConfig)
     databases.add(database: database, as: .mysql)
     services.register(databases)
