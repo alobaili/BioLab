@@ -5,4 +5,12 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" href="/users">View Users &#187;</a>
+        </div>
+    </div>
+</div>
+
 #embed("master")

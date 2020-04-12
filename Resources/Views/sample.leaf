@@ -1,22 +1,37 @@
 #set("body") {
-    <h1>#(title) for #(user.firstName) #(user.lastName)</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>#(title) for #(user.firstName) #(user.lastName)</h2>
+                <h3>Age: #(user.age)</h3>
 
-    <h2>Age: #(user.age)</h2>
+                <h3>#count(samples) 
+                #if(count(samples) != 1) {
+                    Samples
+                } else {
+                    Sample
+                }
+                </h3>
+            </div>
+        </div>
+    </div>
 
-    <h2>
-        #count(samples)
-        #if(count(samples) != 1) {
-            samples
-        } else {
-            sample
-        }
-    </h2>
-    <ul>
-        #for(sample in samples) {
-            <li>
-                #(sample.id) #(sample.isProcessed)
-            </li>
-        }
-    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group list-group-flush">
+                    #for(sample in samples) {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="col-md-9">#(sample.id)</span>
+                            <span class="col-md-3">#(sample.isProcessed)</span> 
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <form action="/users/#(user.id)/samples" method="post">
+            <button type="submit" class="btn btn-success">Add Sample</button>    
+        </form>
+    </div>
 }
 #embed("master")
